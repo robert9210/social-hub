@@ -5,7 +5,10 @@
   "scope": "./",
   "scope_extensions": [
     {
-      "origin": "https://robert9210.github.io"
+      "origin": "https://robert9210.github.io",
+      "relation": [
+        "delegate_permission/common.handle_all_urls"
+      ]
     }
   ],
   "display": "standalone",
@@ -40,7 +43,7 @@
       "url": "https://robert9210.github.io/social-hub/manifest.json"
     }
   ],
-  "iarc_rating_id": "urn:iarc:rated:all",
+  "iarc_rating_id": "e8488e1a-0e9a-48d6-94e8-8d4e96395786",
   "protocol_handlers": [
     {
       "protocol": "web+netwave",
