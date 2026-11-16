@@ -218,7 +218,7 @@
       <h2>&#9654; YouTube</h2>
       <span class="badge">AdBlock ON &bull; Ad-Free</span>
     </div>
-    <input id="ytSearch" class="search" type="text" placeholder="Search videos..." oninput="renderList(this.value)">
+    <input id="ytSearch" class="search" type="text" placeholder="Search videos..." oninput="searchYt(this.value)">
     <div class="player-wrap">
       <div id="playerEmpty" class="player-empty"></div>
       <iframe id="player" class="hidden" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -319,9 +319,12 @@
 
   // Ad-Free button: in Electron open YouTube straight in the in-app WebView
   // (no intermediate page); on the web keep the old embedded Ad-Free page.
+  // Ad-Free button: in Electron open YouTube straight in the in-app WebView
+  // (no intermediate page); on the web open the in-app home feed.
   function openAdFree() {
-    // اینڈرائیڈ اے پی کے کے لیے براہِ راست موبائل یوٹیوب کا لنک ان-ایپ براؤزر میں کھولیں
-    window.open('https://m.youtube.com', '_blank');
+    if (isElectron) { openWebview('https://www.youtube.com', 'YouTube'); return; }
+    showPage('ytPage');
+    loadYtHome();
   }
 
   function openWebview(url, name) {
@@ -409,33 +412,118 @@
     toast(on ? 'AdBlock ON \u2014 in-app YouTube is ad-free.' : 'AdBlock OFF \u2014 ads may appear on real YouTube.');
   }
 
-  /* ---------- In-app YouTube list & player ---------- */
-  function renderList(q) {
-    q = (q || '').toLowerCase();
+  /* ---------- In-app YouTube home (web) ---------- */
+  // Real YouTube home can't be embedded in a page — YouTube blocks it
+  // (X-Frame-Options: SAMEORIGIN). So the in-app home is a real feed
+  // instead: trending + search from the Invidious API, played in
+  // YouTube's own embed player (which works on mobile browsers).
+  // If the API is down, the built-in video list is shown instead.
+  var INV_API = 'https://yt.chocolatemoo53.com/api/v1';
+  var ytCurrentList = [];
+  var ytSearchTimer = null;
+
+  function escHtml(s) {
+    return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+  function fmtViews(n) {
+    n = Number(n) || 0;
+    if (n >= 1e9) return (n / 1e9).toFixed(1).replace(/\.0$/, '') + 'B views';
+    if (n >= 1e6) return (n / 1e6).toFixed(1).replace(/\.0$/, '') + 'M views';
+    if (n >= 1e3) return (n / 1e3).toFixed(1).replace(/\.0$/, '') + 'K views';
+    return n ? n + ' views' : '';
+  }
+  function fmtDur(sec) {
+    sec = Number(sec) || 0;
+    if (!sec) return '';
+    var h = Math.floor(sec / 3600), m = Math.floor((sec % 3600) / 60), s = sec % 60;
+    return h ? h + ':' + String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0') : m + ':' + String(s).padStart(2, '0');
+  }
+  function ytToItem(v) {
+    var id = v.videoId || v.id || '';
+    if (!id) return null;
+    var views = fmtViews(v.viewCount);
+    var dur = fmtDur(v.lengthSeconds);
+    var sub = v.author || v.channel || '';
+    if (views) sub += ' \u2022 ' + views;
+    if (dur) sub += ' \u2022 ' + dur;
+    if (v.liveNow) sub += ' \u2022 LIVE';
+    return { id: id, title: v.title || '', channel: v.author || v.channel || '', sub: sub };
+  }
+  function renderYtList(items) {
+    ytCurrentList = items || [];
     var list = document.getElementById('vidList');
-    var items = VIDEOS.filter(function (v) {
-      return v.title.toLowerCase().indexOf(q) !== -1 || v.channel.toLowerCase().indexOf(q) !== -1;
-    });
-    if (!items.length) { list.innerHTML = '<div class="empty-msg">No videos found for &quot;' + q + '&quot;</div>'; return; }
-    list.innerHTML = items.map(function (v) {
-      return '<button type="button" class="vid" onclick="playVideo(\'' + v.id + '\', \'' + v.title.replace(/'/g, "\\'") + '\', \'' + v.channel + '\')">'
-        + '<img src="https://i.ytimg.com/vi/' + v.id + '/hqdefault.jpg" alt="">'
-        + '<span><span class="vid-title">' + v.title + '</span><span class="vid-sub">' + v.channel + ' &bull; ' + v.views + '</span></span></button>';
+    if (!ytCurrentList.length) { list.innerHTML = '<div class="empty-msg">No videos found</div>'; return; }
+    list.innerHTML = ytCurrentList.map(function (v, i) {
+      return '<button type="button" class="vid" onclick="playYtVideo(' + i + ')">'
+        + '<img src="https://i.ytimg.com/vi/' + v.id + '/hqdefault.jpg" alt="" loading="lazy">'
+        + '<span><span class="vid-title">' + escHtml(v.title) + '</span><span class="vid-sub">' + escHtml(v.sub) + '</span></span></button>';
     }).join('');
   }
-
+  // Built-in list: used when the API is unreachable, and to filter locally.
+  function renderYtFallback(q) {
+    q = (q || '').toLowerCase();
+    var items = VIDEOS.filter(function (v) {
+      return v.title.toLowerCase().indexOf(q) !== -1 || v.channel.toLowerCase().indexOf(q) !== -1;
+    }).map(function (v) { return { id: v.id, title: v.title, channel: v.channel, sub: v.channel + ' \u2022 ' + v.views }; });
+    renderYtList(items);
+  }
+  function loadYtHome() {
+    var list = document.getElementById('vidList');
+    list.innerHTML = '<div class="empty-msg">Loading trending videos\u2026</div>';
+    if (typeof fetch !== 'function') { renderYtFallback(''); return; }
+    fetch(INV_API + '/trending')
+      .then(function (r) { if (!r.ok) throw new Error('http ' + r.status); return r.json(); })
+      .then(function (data) {
+        var items = (Array.isArray(data) ? data : []).map(ytToItem).filter(Boolean).slice(0, 30);
+        if (!items.length) throw new Error('empty');
+        renderYtList(items);
+      })
+      .catch(function () { renderYtFallback(''); });
+  }
+  function searchYt(q) {
+    q = (q || '').trim();
+    clearTimeout(ytSearchTimer);
+    if (q.length < 2) { loadYtHome(); return; }
+    ytSearchTimer = setTimeout(function () {
+      var list = document.getElementById('vidList');
+      list.innerHTML = '<div class="empty-msg">Searching\u2026</div>';
+      if (typeof fetch !== 'function') { renderYtFallback(q); return; }
+      fetch(INV_API + '/search?q=' + encodeURIComponent(q) + '&type=video')
+        .then(function (r) { if (!r.ok) throw new Error('http ' + r.status); return r.json(); })
+        .then(function (data) {
+          var items = (Array.isArray(data) ? data : []).filter(function (v) { return v.type === 'video'; }).map(ytToItem).filter(Boolean).slice(0, 30);
+          if (!items.length) throw new Error('empty');
+          renderYtList(items);
+        })
+        .catch(function () { renderYtFallback(q); });
+    }, 400);
+  }
+  function playYtVideo(i) {
+    var v = ytCurrentList[i];
+    if (!v) return;
+    var player = document.getElementById('player');
+    document.getElementById('playerEmpty').classList.add('hidden');
+    player.classList.remove('hidden');
+    player.src = 'https://www.youtube.com/embed/' + v.id + '?autoplay=1&rel=0';
+    var np = document.getElementById('nowPlaying');
+    np.innerHTML = escHtml(v.title) + '<small>' + escHtml(v.channel) + ' \u2022 Playing (embedded player)</small>';
+    np.classList.remove('hidden');
+    window.scrollTo(0, 0);
+  }
+  // Old names kept working: they now just show the built-in list.
+  function renderList(q) { renderYtFallback(q); }
   function playVideo(id, title, channel) {
     var player = document.getElementById('player');
     document.getElementById('playerEmpty').classList.add('hidden');
     player.classList.remove('hidden');
     player.src = 'https://www.youtube.com/embed/' + id + '?autoplay=1&rel=0';
     var np = document.getElementById('nowPlaying');
-    np.innerHTML = title + '<small>' + channel + ' &bull; Playing ad-free (embedded player)</small>';
+    np.innerHTML = escHtml(title) + '<small>' + escHtml(channel) + ' \u2022 Playing (embedded player)</small>';
     np.classList.remove('hidden');
     window.scrollTo(0, 0);
   }
 
-  renderList('');
+  renderYtFallback('');
   wireWebview();
 
   /* ---------- Download Manager ---------- */
