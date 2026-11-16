@@ -7,6 +7,14 @@
   "theme_color": "#0F0F12",
   "description": "Watch your favorite social media and videos in one place.",
   "id": "com.netwave.app",
+  "orientation": "any",
+  "categories": [
+    "entertainment",
+    "social",
+    "utilities"
+  ],
+  "lang": "en",
+  "dir": "ltr",
   "icons": [
     {
       "src": "icon-192.png",
