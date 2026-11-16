@@ -2,7 +2,13 @@
   "name": "NetWave",
   "short_name": "NetWave",
   "start_url": "./index.html",
+  "scope": "./",
   "display": "standalone",
+  "display_override": [
+    "window-controls-overlay",
+    "standalone",
+    "minimal-ui"
+  ],
   "background_color": "#0F0F12",
   "theme_color": "#0F0F12",
   "description": "Watch your favorite social media and videos in one place.",
@@ -15,6 +21,14 @@
   ],
   "lang": "en",
   "dir": "ltr",
+  "prefer_related_applications": false,
+  "related_applications": [
+    {
+      "platform": "webapp",
+      "url": "https://robert9210.github.io/social-hub/manifest.json"
+    }
+  ],
+  "iarc_rating_id": "urn:iarc:rated:all",
   "icons": [
     {
       "src": "icon-192.png",
