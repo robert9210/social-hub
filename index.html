@@ -84,6 +84,70 @@
   .vid-sub { display: block; color: #9ca3af; font-size: 12px; margin-top: 5px; }
   .empty-msg { text-align: center; color: #9ca3af; padding: 30px 10px; font-size: 14px; }
 
+  /* ---------- YouTube-like home (Ad-Free) ---------- */
+  .yt-topbar { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 4px 0 10px; }
+  .yt-top-left { display: flex; align-items: center; gap: 2px; min-width: 0; }
+  .yt-logo { display: flex; align-items: center; gap: 6px; font-size: 18px; font-weight: 800; letter-spacing: -0.5px; cursor: pointer; white-space: nowrap; }
+  .yt-logo svg { display: block; flex-shrink: 0; }
+  .yt-logo small { font-size: 10px; color: #9ca3af; font-weight: 600; margin-left: 1px; }
+  .yt-top-icons { display: flex; align-items: center; gap: 2px; flex-shrink: 0; }
+  .yt-icon-btn { width: 38px; height: 38px; border-radius: 50%; border: 0; background: transparent; color: #fff; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .yt-icon-btn:active { background: #26262e; }
+  .yt-avatar { width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, #7c3aed, #db2777); display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 800; flex-shrink: 0; margin-left: 4px; }
+  .yt-searchrow { display: flex; align-items: center; gap: 8px; background: #1a1a22; border: 1px solid #26262e; border-radius: 999px; padding: 2px 6px 2px 14px; margin-bottom: 12px; }
+  .yt-searchrow .search { border: 0; background: transparent; margin: 0; padding: 10px 0; flex: 1; min-width: 0; }
+  .yt-search-go { width: 36px; height: 36px; border-radius: 50%; border: 0; background: #26262e; color: #fff; font-size: 16px; cursor: pointer; flex-shrink: 0; }
+  .yt-search-go:active { background: #3f3f46; }
+  .yt-chips { display: flex; gap: 8px; overflow-x: auto; padding: 2px 2px 12px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+  .yt-chips::-webkit-scrollbar { display: none; }
+  .yt-chip { flex-shrink: 0; border: 0; background: #26262e; color: #fff; font: inherit; font-size: 13px; font-weight: 600; padding: 8px 13px; border-radius: 9px; cursor: pointer; transition: background .15s, transform .1s; }
+  .yt-chip:active { transform: scale(.94); }
+  .yt-chip.active { background: #fff; color: #0f0f12; }
+  .yt-feed { display: flex; flex-direction: column; gap: 20px; }
+  .yt-card { display: block; width: 100%; background: none; border: 0; padding: 0; cursor: pointer; font: inherit; color: inherit; text-align: left; animation: ytFadeUp .35s ease both; }
+  .yt-card:active .yt-thumb img { transform: scale(.985); }
+  .yt-thumb { position: relative; display: block; width: 100%; aspect-ratio: 16/9; border-radius: 12px; overflow: hidden; background: #1a1a22; }
+  .yt-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .25s ease; }
+  .yt-dur { position: absolute; right: 8px; bottom: 8px; background: rgba(0,0,0,.85); color: #fff; font-size: 12px; font-weight: 600; padding: 3px 6px; border-radius: 6px; }
+  .yt-live-badge { position: absolute; left: 8px; bottom: 8px; background: #c00; color: #fff; font-size: 11px; font-weight: 800; padding: 3px 7px; border-radius: 5px; letter-spacing: .5px; }
+  .yt-card-body { display: flex; gap: 10px; padding: 10px 2px 0; }
+  .yt-chan-av { width: 36px; height: 36px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 800; color: #fff; }
+  .yt-card-text { flex: 1; min-width: 0; }
+  .yt-card-title { display: block; font-size: 15px; font-weight: 600; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .yt-card-meta { display: block; color: #aaa; font-size: 13px; margin-top: 4px; line-height: 1.4; }
+  .yt-more { color: #aaa; font-size: 18px; line-height: 1; padding: 2px 4px; flex-shrink: 0; }
+  .yt-shorts { margin: 4px 0 18px; }
+  .yt-shorts-head { display: flex; align-items: center; gap: 7px; font-size: 16px; font-weight: 700; margin-bottom: 10px; }
+  .yt-shorts-row { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 6px; scrollbar-width: none; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; }
+  .yt-shorts-row::-webkit-scrollbar { display: none; }
+  .yt-short { flex-shrink: 0; width: 118px; scroll-snap-align: start; background: none; border: 0; padding: 0; cursor: pointer; font: inherit; color: inherit; text-align: left; }
+  .yt-short:active { transform: scale(.97); }
+  .yt-short-thumb { position: relative; width: 118px; height: 210px; border-radius: 12px; overflow: hidden; background: #1a1a22; }
+  .yt-short-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .yt-short-views { position: absolute; left: 8px; bottom: 8px; color: #fff; font-size: 12px; font-weight: 700; text-shadow: 0 1px 4px rgba(0,0,0,.8); }
+  .yt-short-title { display: block; font-size: 13px; font-weight: 600; line-height: 1.35; margin-top: 7px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  #ytWatch { animation: ytSlideUp .28s ease both; }
+  .yt-watch-title { font-size: 16px; font-weight: 700; line-height: 1.45; margin: 10px 2px 0; }
+  .yt-watch-chan { display: flex; align-items: center; gap: 10px; margin: 12px 2px 0; }
+  .yt-watch-chan .yt-chan-av { width: 40px; height: 40px; font-size: 18px; }
+  .yt-watch-chan b { font-size: 15px; display: block; }
+  .yt-watch-chan span { color: #aaa; font-size: 12px; display: block; margin-top: 2px; }
+  .yt-watch-actions { display: flex; gap: 8px; margin: 14px 2px 0; overflow-x: auto; scrollbar-width: none; }
+  .yt-watch-actions::-webkit-scrollbar { display: none; }
+  .yt-act { flex-shrink: 0; display: flex; align-items: center; gap: 6px; background: #26262e; color: #fff; border: 0; font: inherit; font-size: 13px; font-weight: 600; padding: 9px 14px; border-radius: 999px; cursor: pointer; transition: transform .1s; }
+  .yt-act:active { transform: scale(.94); }
+  .yt-act.on { background: #fff; color: #0f0f12; }
+  .yt-watch-meta { background: #1a1a22; border-radius: 12px; padding: 12px 14px; font-size: 13px; line-height: 1.55; color: #e5e5e5; margin: 14px 2px 0; white-space: pre-line; }
+  .yt-upnext-head { font-size: 15px; font-weight: 700; margin: 20px 2px 12px; }
+  .yt-skel { animation: ytFadeUp .3s ease both; }
+  .yt-skel-thumb { width: 100%; aspect-ratio: 16/9; border-radius: 12px; background: linear-gradient(90deg, #1a1a22 25%, #26262e 50%, #1a1a22 75%); background-size: 200% 100%; animation: ytShimmer 1.2s infinite; }
+  .yt-skel-line { height: 13px; border-radius: 7px; margin-top: 10px; background: linear-gradient(90deg, #1a1a22 25%, #26262e 50%, #1a1a22 75%); background-size: 200% 100%; animation: ytShimmer 1.2s infinite; }
+  .yt-skel-line.short { width: 55%; }
+  @keyframes ytShimmer { from { background-position: 200% 0; } to { background-position: -200% 0; } }
+  @keyframes ytFadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes ytSlideUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+  .yt-toast { position: fixed; left: 50%; bottom: 26px; transform: translateX(-50%); background: #f1f1f1; color: #0f0f12; font-size: 14px; font-weight: 600; padding: 11px 18px; border-radius: 10px; box-shadow: 0 8px 30px rgba(0,0,0,.5); z-index: 99; animation: ytFadeUp .25s ease both; max-width: 86vw; text-align: center; }
+
   /* ---------- IN-APP WEBVIEW (ELECTRON) ---------- */
   #wvPage { padding: 0; display: none; flex-direction: column; height: 100vh; }
   #wvPage.active { display: flex; }
@@ -213,18 +277,55 @@
 
   <!-- ============ IN-APP YOUTUBE (AD-FREE) ============ -->
   <div id="ytPage" class="page">
-    <button class="back-btn" onclick="showPage('pickerPage')">&larr; Back</button>
-    <div class="yt-head">
-      <h2>&#9654; YouTube</h2>
-      <span class="badge">AdBlock ON &bull; Ad-Free</span>
+    <!-- Feed: looks like the YouTube home tab -->
+    <div id="ytFeed">
+      <div class="yt-topbar">
+        <span class="yt-top-left">
+          <button class="yt-icon-btn" onclick="showPage('pickerPage')" aria-label="Back">&#8592;</button>
+          <span class="yt-logo" onclick="loadYtHome()" role="button" aria-label="YouTube home">
+            <svg width="30" height="21" viewBox="0 0 30 21"><rect width="30" height="21" rx="6" fill="#ff0000"/><path d="M12 6.5v8l7-4z" fill="#fff"/></svg>
+            <b>YouTube</b><small>Ad-Free</small>
+          </span>
+        </span>
+        <span class="yt-top-icons">
+          <button class="yt-icon-btn" onclick="focusYtSearch()" aria-label="Search"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></svg></button>
+          <button class="yt-icon-btn" onclick="ytToast('No new notifications')" aria-label="Notifications"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg></button>
+          <span class="yt-avatar">S</span>
+        </span>
+      </div>
+      <div class="yt-searchrow">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></svg>
+        <input id="ytSearch" class="search" type="text" placeholder="Search" oninput="searchYt(this.value)">
+        <button class="yt-search-go" onclick="searchYt(document.getElementById('ytSearch').value)" aria-label="Go">&#8594;</button>
+      </div>
+      <div class="yt-chips" id="ytChips"></div>
+      <div id="ytShorts" class="yt-shorts hidden">
+        <div class="yt-shorts-head">
+          <svg width="18" height="24" viewBox="0 0 18 24"><rect width="18" height="24" rx="5" fill="#ff0000"/><path d="M7 7v10l6-5z" fill="#fff"/></svg>
+          <b>Shorts</b>
+        </div>
+        <div class="yt-shorts-row" id="ytShortsRow"></div>
+      </div>
+      <div id="vidList" class="yt-feed"></div>
     </div>
-    <input id="ytSearch" class="search" type="text" placeholder="Search videos..." oninput="searchYt(this.value)">
-    <div class="player-wrap">
-      <div id="playerEmpty" class="player-empty"></div>
-      <iframe id="player" class="hidden" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <!-- Watch: opens only when a video is tapped -->
+    <div id="ytWatch" class="hidden">
+      <button class="back-btn" onclick="closeYtWatch()">&larr; Back</button>
+      <div class="player-wrap">
+        <iframe id="player" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+      <div class="yt-watch-title" id="watchTitle"></div>
+      <div class="yt-watch-chan" id="watchChan"></div>
+      <div class="yt-watch-actions">
+        <button class="yt-act" id="likeBtn" onclick="ytToggleLike(this)">&#128077; Like</button>
+        <button class="yt-act" onclick="ytShare()">&#8599; Share</button>
+        <button class="yt-act" onclick="ytToast('Download works in the Mac app')">⬇ Download</button>
+        <button class="yt-act" id="saveBtn" onclick="ytToggleSave(this)">+ Save</button>
+      </div>
+      <div class="yt-watch-meta hidden" id="watchMeta"></div>
+      <div class="yt-upnext-head">Up next</div>
+      <div id="ytUpNext" class="yt-feed"></div>
     </div>
-    <div id="nowPlaying" class="now-playing hidden"></div>
-    <div id="vidList" class="vid-list"></div>
   </div>
 
   <!-- ============ IN-APP WEBVIEW (ELECTRON) ============ -->
@@ -418,9 +519,17 @@
   // instead: trending + search from the Invidious API, played in
   // YouTube's own embed player (which works on mobile browsers).
   // If the API is down, the built-in video list is shown instead.
+  // Layout mimics the mobile YouTube app: top bar, topic chips,
+  // a Shorts shelf, full-width video cards, and a watch view that
+  // opens only when a video is tapped (no pre-loaded player).
   var INV_API = 'https://yt.chocolatemoo53.com/api/v1';
   var ytCurrentList = [];
   var ytSearchTimer = null;
+  var ytPlaying = null;
+  var ytPlayingIdx = -1;
+
+  var YT_CHIPS = ['All', 'Music', 'Gaming', 'Live', 'News', 'Podcasts', 'Cooking', 'Sports', 'Comedy', 'Tech'];
+  var YT_AV_COLORS = ['#7c3aed', '#db2777', '#0891b2', '#65a30d', '#ea580c', '#4f46e5', '#be185d', '#0d9488', '#b45309', '#334155'];
 
   function escHtml(s) {
     return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -438,6 +547,39 @@
     var h = Math.floor(sec / 3600), m = Math.floor((sec % 3600) / 60), s = sec % 60;
     return h ? h + ':' + String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0') : m + ':' + String(s).padStart(2, '0');
   }
+  function fmtTimeAgo(ts) {
+    ts = Number(ts) || 0;
+    if (!ts) return '';
+    var diff = Math.floor(Date.now() / 1000) - ts;
+    // Under an hour is hidden: the trending feed stamps every item with
+    // "now", so showing "just now" would be wrong on all of them.
+    if (diff < 3600) return '';
+    if (diff < 86400) { var h = Math.floor(diff / 3600); return h + (h === 1 ? ' hour ago' : ' hours ago'); }
+    if (diff < 604800) { var d = Math.floor(diff / 86400); return d + (d === 1 ? ' day ago' : ' days ago'); }
+    if (diff < 2592000) { var w = Math.floor(diff / 604800); return w + (w === 1 ? ' week ago' : ' weeks ago'); }
+    if (diff < 31536000) { var mo = Math.floor(diff / 2592000); return mo + (mo === 1 ? ' month ago' : ' months ago'); }
+    var y = Math.floor(diff / 31536000); return y + (y === 1 ? ' year ago' : ' years ago');
+  }
+  function chanColor(name) {
+    var h = 0, i;
+    name = String(name || '?');
+    for (i = 0; i < name.length; i++) h = (h * 31 + name.charCodeAt(i)) % 997;
+    return YT_AV_COLORS[h % YT_AV_COLORS.length];
+  }
+  function chanInitial(name) {
+    name = String(name || '?').trim();
+    return name ? name.charAt(0).toUpperCase() : '?';
+  }
+  function ytMetaLine(v) {
+    var parts = [];
+    if (v.channel) parts.push(v.channel);
+    if (v.viewsNum) parts.push(fmtViews(v.viewsNum));
+    else if (v.subViews) parts.push(v.subViews);
+    var ago = fmtTimeAgo(v.published);
+    if (ago) parts.push(ago);
+    if (v.live) parts.push('LIVE');
+    return parts.join(' \u2022 ');
+  }
   function ytToItem(v) {
     var id = v.videoId || v.id || '';
     if (!id) return null;
@@ -447,53 +589,176 @@
     if (views) sub += ' \u2022 ' + views;
     if (dur) sub += ' \u2022 ' + dur;
     if (v.liveNow) sub += ' \u2022 LIVE';
-    return { id: id, title: v.title || '', channel: v.author || v.channel || '', sub: sub };
+    return {
+      id: id, title: v.title || '', channel: v.author || v.channel || '', sub: sub,
+      durSec: Number(v.lengthSeconds) || 0, published: Number(v.published) || 0,
+      viewsNum: Number(v.viewCount) || 0, subViews: '', live: !!v.liveNow,
+      desc: (v.description || '').replace(/\s+/g, ' ').trim()
+    };
   }
-  function renderYtList(items) {
+  function ytCardHtml(v, i) {
+    var meta = ytMetaLine(v);
+    var dur = fmtDur(v.durSec);
+    var badge = dur ? '<span class="yt-dur">' + dur + '</span>' : '';
+    if (v.live) badge += '<span class="yt-live-badge">LIVE</span>';
+    return '<button type="button" class="yt-card" onclick="playYtVideo(' + i + ')">'
+      + '<span class="yt-thumb"><img src="https://i.ytimg.com/vi/' + v.id + '/hqdefault.jpg" alt="" loading="lazy">' + badge + '</span>'
+      + '<span class="yt-card-body">'
+      + '<span class="yt-chan-av" style="background:' + chanColor(v.channel) + '">' + escHtml(chanInitial(v.channel)) + '</span>'
+      + '<span class="yt-card-text"><span class="yt-card-title">' + escHtml(v.title) + '</span>'
+      + '<span class="yt-card-meta">' + escHtml(meta) + '</span></span>'
+      + '<span class="yt-more">&#8942;</span></span></button>';
+  }
+  function renderYtSkeleton(n) {
+    var list = document.getElementById('vidList');
+    var h = '', i;
+    for (i = 0; i < n; i++) {
+      h += '<div class="yt-skel"><div class="yt-skel-thumb"></div><div class="yt-skel-line"></div><div class="yt-skel-line short"></div></div>';
+    }
+    list.innerHTML = h;
+  }
+  function renderYtShorts(items) {
+    var box = document.getElementById('ytShorts');
+    var row = document.getElementById('ytShortsRow');
+    var shorts = [];
+    var i, v;
+    for (i = 0; i < items.length; i++) {
+      v = items[i];
+      if (v.durSec > 0 && v.durSec <= 60 && !v.live) shorts.push({ v: v, idx: i });
+    }
+    shorts = shorts.slice(0, 10);
+    if (shorts.length < 2) { box.classList.add('hidden'); row.innerHTML = ''; return; }
+    box.classList.remove('hidden');
+    row.innerHTML = shorts.map(function (s) {
+      var views = s.v.viewsNum ? fmtViews(s.v.viewsNum) : '';
+      return '<button type="button" class="yt-short" onclick="playYtVideo(' + s.idx + ')">'
+        + '<span class="yt-short-thumb"><img src="https://i.ytimg.com/vi/' + s.v.id + '/hqdefault.jpg" alt="" loading="lazy">'
+        + (views ? '<span class="yt-short-views">' + escHtml(views) + '</span>' : '') + '</span>'
+        + '<span class="yt-short-title">' + escHtml(s.v.title) + '</span></button>';
+    }).join('');
+  }
+  // Shorts shelf: the trending feed reports no durations, so Shorts are
+  // fetched separately (search "#shorts", short videos only) and appended
+  // to the home list so they play like any other video.
+  function loadYtShorts() {
+    if (typeof fetch !== 'function') return;
+    var homeList = ytCurrentList;
+    fetch(INV_API + '/search?q=%23shorts&type=video&duration=short')
+      .then(function (r) { if (!r.ok) throw new Error('http ' + r.status); return r.json(); })
+      .then(function (data) {
+        if (ytCurrentList !== homeList) return; // user left the home feed
+        var shorts = (Array.isArray(data) ? data : []).filter(function (v) { return v.type === 'video'; }).map(ytToItem).filter(Boolean)
+          .filter(function (v) { return v.durSec > 0 && v.durSec <= 60 && !v.live; }).slice(0, 10);
+        if (shorts.length < 2) return;
+        var seen = {};
+        ytCurrentList.forEach(function (v) { seen[v.id] = true; });
+        var fresh = shorts.filter(function (v) { return !seen[v.id]; });
+        if (!fresh.length) return;
+        ytCurrentList = ytCurrentList.concat(fresh);
+        renderYtShorts(ytCurrentList);
+      })
+      .catch(function () { /* shelf stays hidden */ });
+  }
+  function renderYtList(items, isSearch) {
     ytCurrentList = items || [];
     var list = document.getElementById('vidList');
-    if (!ytCurrentList.length) { list.innerHTML = '<div class="empty-msg">No videos found</div>'; return; }
-    list.innerHTML = ytCurrentList.map(function (v, i) {
-      return '<button type="button" class="vid" onclick="playYtVideo(' + i + ')">'
-        + '<img src="https://i.ytimg.com/vi/' + v.id + '/hqdefault.jpg" alt="" loading="lazy">'
-        + '<span><span class="vid-title">' + escHtml(v.title) + '</span><span class="vid-sub">' + escHtml(v.sub) + '</span></span></button>';
-    }).join('');
+    if (!ytCurrentList.length) {
+      document.getElementById('ytShorts').classList.add('hidden');
+      list.innerHTML = '<div class="empty-msg">No videos found</div>';
+      return;
+    }
+    if (isSearch) {
+      document.getElementById('ytShorts').classList.add('hidden');
+      document.getElementById('ytShortsRow').innerHTML = '';
+    } else {
+      renderYtShorts(ytCurrentList);
+    }
+    // Shorts live in the shelf only; the feed shows the longer videos.
+    var feed = [], i, v;
+    for (i = 0; i < ytCurrentList.length; i++) {
+      v = ytCurrentList[i];
+      if (isSearch || !(v.durSec > 0 && v.durSec <= 60 && !v.live)) feed.push({ v: v, idx: i });
+    }
+    if (!feed.length) { for (i = 0; i < ytCurrentList.length; i++) feed.push({ v: ytCurrentList[i], idx: i }); }
+    list.innerHTML = feed.map(function (f) { return ytCardHtml(f.v, f.idx); }).join('');
   }
   // Built-in list: used when the API is unreachable, and to filter locally.
   function renderYtFallback(q) {
     q = (q || '').toLowerCase();
     var items = VIDEOS.filter(function (v) {
       return v.title.toLowerCase().indexOf(q) !== -1 || v.channel.toLowerCase().indexOf(q) !== -1;
-    }).map(function (v) { return { id: v.id, title: v.title, channel: v.channel, sub: v.channel + ' \u2022 ' + v.views }; });
-    renderYtList(items);
+    }).map(function (v) {
+      return { id: v.id, title: v.title, channel: v.channel, sub: v.channel + ' \u2022 ' + v.views, subViews: v.views, durSec: 0, published: 0, viewsNum: 0, live: false, desc: '' };
+    });
+    renderYtList(items, !!q);
+  }
+  function ytSetChip(topic) {
+    var chips = document.querySelectorAll('#ytChips .yt-chip');
+    for (var i = 0; i < chips.length; i++) {
+      if (chips[i].getAttribute('data-topic') === topic) chips[i].classList.add('active');
+      else chips[i].classList.remove('active');
+    }
+  }
+  function buildYtChips() {
+    var box = document.getElementById('ytChips');
+    box.innerHTML = YT_CHIPS.map(function (t, i) {
+      return '<button type="button" class="yt-chip' + (i === 0 ? ' active' : '') + '" data-topic="' + t + '" onclick="ytChip(\'' + t + '\')">' + t + '</button>';
+    }).join('');
+  }
+  function ytChip(topic) {
+    var input = document.getElementById('ytSearch');
+    if (topic === 'All') { input.value = ''; loadYtHome(); return; }
+    input.value = topic;
+    searchYt(topic);
+  }
+  function showYtFeed() {
+    stopYtPlayer();
+    document.getElementById('ytWatch').classList.add('hidden');
+    document.getElementById('ytFeed').classList.remove('hidden');
+  }
+  function stopYtPlayer() {
+    var player = document.getElementById('player');
+    if (player) player.src = '';
+    ytPlaying = null;
+    ytPlayingIdx = -1;
   }
   function loadYtHome() {
-    var list = document.getElementById('vidList');
-    list.innerHTML = '<div class="empty-msg">Loading trending videos\u2026</div>';
+    showYtFeed();
+    ytSetChip('All');
+    var input = document.getElementById('ytSearch');
+    if (input) input.value = '';
+    renderYtSkeleton(4);
     if (typeof fetch !== 'function') { renderYtFallback(''); return; }
     fetch(INV_API + '/trending')
       .then(function (r) { if (!r.ok) throw new Error('http ' + r.status); return r.json(); })
       .then(function (data) {
         var items = (Array.isArray(data) ? data : []).map(ytToItem).filter(Boolean).slice(0, 30);
         if (!items.length) throw new Error('empty');
-        renderYtList(items);
+        renderYtList(items, false);
+        loadYtShorts();
       })
-      .catch(function () { renderYtFallback(''); });
+      .catch(function () { renderYtFallback(''); loadYtShorts(); });
   }
   function searchYt(q) {
     q = (q || '').trim();
     clearTimeout(ytSearchTimer);
     if (q.length < 2) { loadYtHome(); return; }
+    // Keep the matching topic chip active; any other query clears the chips.
+    var matched = '', c;
+    for (c = 0; c < YT_CHIPS.length; c++) {
+      if (YT_CHIPS[c].toLowerCase() === q.toLowerCase()) { matched = YT_CHIPS[c]; break; }
+    }
+    ytSetChip(matched);
     ytSearchTimer = setTimeout(function () {
-      var list = document.getElementById('vidList');
-      list.innerHTML = '<div class="empty-msg">Searching\u2026</div>';
+      showYtFeed();
+      renderYtSkeleton(3);
       if (typeof fetch !== 'function') { renderYtFallback(q); return; }
       fetch(INV_API + '/search?q=' + encodeURIComponent(q) + '&type=video')
         .then(function (r) { if (!r.ok) throw new Error('http ' + r.status); return r.json(); })
         .then(function (data) {
           var items = (Array.isArray(data) ? data : []).filter(function (v) { return v.type === 'video'; }).map(ytToItem).filter(Boolean).slice(0, 30);
           if (!items.length) throw new Error('empty');
-          renderYtList(items);
+          renderYtList(items, true);
         })
         .catch(function () { renderYtFallback(q); });
     }, 400);
@@ -501,29 +766,88 @@
   function playYtVideo(i) {
     var v = ytCurrentList[i];
     if (!v) return;
+    ytPlaying = v;
+    ytPlayingIdx = i;
+    document.getElementById('ytFeed').classList.add('hidden');
+    var watch = document.getElementById('ytWatch');
+    watch.classList.remove('hidden');
+    // Restart the slide-up animation each time a video opens.
+    watch.style.animation = 'none'; void watch.offsetWidth; watch.style.animation = '';
     var player = document.getElementById('player');
-    document.getElementById('playerEmpty').classList.add('hidden');
-    player.classList.remove('hidden');
     player.src = 'https://www.youtube.com/embed/' + v.id + '?autoplay=1&rel=0';
-    var np = document.getElementById('nowPlaying');
-    np.innerHTML = escHtml(v.title) + '<small>' + escHtml(v.channel) + ' \u2022 Playing (embedded player)</small>';
-    np.classList.remove('hidden');
+    document.getElementById('watchTitle').textContent = v.title;
+    var meta = ytMetaLine(v);
+    document.getElementById('watchChan').innerHTML =
+      '<span class="yt-chan-av" style="background:' + chanColor(v.channel) + '">' + escHtml(chanInitial(v.channel)) + '</span>'
+      + '<span><b>' + escHtml(v.channel) + '</b><span>' + escHtml(meta) + '</span></span>';
+    var metaBox = document.getElementById('watchMeta');
+    var desc = (v.desc || '').slice(0, 220);
+    if (meta || desc) {
+      metaBox.textContent = (meta ? meta : '') + (desc ? '\n' + desc : '');
+      metaBox.classList.remove('hidden');
+    } else {
+      metaBox.classList.add('hidden');
+    }
+    var like = document.getElementById('likeBtn');
+    like.classList.remove('on'); like.innerHTML = '&#128077; Like';
+    var save = document.getElementById('saveBtn');
+    save.classList.remove('on'); save.textContent = '+ Save';
+    // Up next: the rest of the list, same cards.
+    var up = document.getElementById('ytUpNext');
+    var h = '', j;
+    for (j = 0; j < ytCurrentList.length; j++) {
+      if (j === i) continue;
+      h += ytCardHtml(ytCurrentList[j], j);
+    }
+    up.innerHTML = h || '<div class="empty-msg">No more videos</div>';
     window.scrollTo(0, 0);
+  }
+  function closeYtWatch() {
+    showYtFeed();
+    window.scrollTo(0, 0);
+  }
+  function focusYtSearch() {
+    var input = document.getElementById('ytSearch');
+    if (input) { input.focus(); input.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
+  }
+  function ytToggleLike(btn) {
+    var on = btn.classList.toggle('on');
+    btn.innerHTML = on ? '&#128077; Liked' : '&#128077; Like';
+  }
+  function ytToggleSave(btn) {
+    var on = btn.classList.toggle('on');
+    btn.textContent = on ? '\u2713 Saved' : '+ Save';
+  }
+  function ytShare() {
+    if (!ytPlaying) return;
+    var url = 'https://www.youtube.com/watch?v=' + ytPlaying.id;
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(url).then(function () { ytToast('Link copied'); }, function () { ytToast(url); });
+    } else {
+      ytToast(url);
+    }
+  }
+  function ytToast(msg) {
+    var old = document.querySelector('.yt-toast');
+    if (old) old.remove();
+    var t = document.createElement('div');
+    t.className = 'yt-toast';
+    t.textContent = msg;
+    document.body.appendChild(t);
+    setTimeout(function () { if (t.parentNode) t.parentNode.removeChild(t); }, 2200);
   }
   // Old names kept working: they now just show the built-in list.
   function renderList(q) { renderYtFallback(q); }
   function playVideo(id, title, channel) {
-    var player = document.getElementById('player');
-    document.getElementById('playerEmpty').classList.add('hidden');
-    player.classList.remove('hidden');
-    player.src = 'https://www.youtube.com/embed/' + id + '?autoplay=1&rel=0';
-    var np = document.getElementById('nowPlaying');
-    np.innerHTML = escHtml(title) + '<small>' + escHtml(channel) + ' \u2022 Playing (embedded player)</small>';
-    np.classList.remove('hidden');
-    window.scrollTo(0, 0);
+    var i;
+    for (i = 0; i < ytCurrentList.length; i++) {
+      if (ytCurrentList[i].id === id) { playYtVideo(i); return; }
+    }
+    ytCurrentList = [{ id: id, title: title || '', channel: channel || '', sub: (channel || ''), subViews: '', durSec: 0, published: 0, viewsNum: 0, live: false, desc: '' }];
+    playYtVideo(0);
   }
 
-  renderYtFallback('');
+  buildYtChips();
   wireWebview();
 
   /* ---------- Download Manager ---------- */
