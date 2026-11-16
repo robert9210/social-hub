@@ -84,6 +84,7 @@
   .vid-sub { display: block; color: #9ca3af; font-size: 12px; margin-top: 5px; }
   .empty-msg { text-align: center; color: #9ca3af; padding: 30px 10px; font-size: 14px; }
 
+
   /* ---------- YouTube-like home (Ad-Free) ---------- */
   .yt-topbar { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 4px 0 10px; }
   .yt-top-left { display: flex; align-items: center; gap: 2px; min-width: 0; }
@@ -126,7 +127,12 @@
   .yt-short-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
   .yt-short-views { position: absolute; left: 8px; bottom: 8px; color: #fff; font-size: 12px; font-weight: 700; text-shadow: 0 1px 4px rgba(0,0,0,.8); }
   .yt-short-title { display: block; font-size: 13px; font-weight: 600; line-height: 1.35; margin-top: 7px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-  #ytWatch { animation: ytSlideUp .28s ease both; }
+  #ytWatch { animation: ytSlideUp .28s ease both; margin: -20px -18px 0; padding: 0 0 40px; }
+  .yt-watch-player { position: relative; }
+  .yt-watch-player .player-wrap { margin: 0; border-radius: 0; }
+  .yt-watch-back { position: absolute; top: 10px; left: 10px; z-index: 3; width: 38px; height: 38px; border-radius: 50%; border: 0; background: rgba(0,0,0,.55); color: #fff; font-size: 20px; line-height: 1; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+  .yt-watch-back:active { background: rgba(0,0,0,.75); }
+  .yt-watch-body { padding: 0 18px; }
   .yt-watch-title { font-size: 16px; font-weight: 700; line-height: 1.45; margin: 10px 2px 0; }
   .yt-watch-chan { display: flex; align-items: center; gap: 10px; margin: 12px 2px 0; }
   .yt-watch-chan .yt-chan-av { width: 40px; height: 40px; font-size: 18px; }
@@ -284,7 +290,7 @@
           <button class="yt-icon-btn" onclick="showPage('pickerPage')" aria-label="Back">&#8592;</button>
           <span class="yt-logo" onclick="loadYtHome()" role="button" aria-label="YouTube home">
             <svg width="30" height="21" viewBox="0 0 30 21"><rect width="30" height="21" rx="6" fill="#ff0000"/><path d="M12 6.5v8l7-4z" fill="#fff"/></svg>
-            <b>YouTube</b><small>Ad-Free</small>
+            <b>YouTube</b>
           </span>
         </span>
         <span class="yt-top-icons">
@@ -310,21 +316,25 @@
     </div>
     <!-- Watch: opens only when a video is tapped -->
     <div id="ytWatch" class="hidden">
-      <button class="back-btn" onclick="closeYtWatch()">&larr; Back</button>
-      <div class="player-wrap">
-        <iframe id="player" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      <div class="yt-watch-player">
+        <button class="yt-watch-back" onclick="closeYtWatch()" aria-label="Back">&#8592;</button>
+        <div class="player-wrap">
+          <iframe id="player" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
       </div>
-      <div class="yt-watch-title" id="watchTitle"></div>
-      <div class="yt-watch-chan" id="watchChan"></div>
-      <div class="yt-watch-actions">
-        <button class="yt-act" id="likeBtn" onclick="ytToggleLike(this)">&#128077; Like</button>
-        <button class="yt-act" onclick="ytShare()">&#8599; Share</button>
-        <button class="yt-act" onclick="ytToast('Download works in the Mac app')">⬇ Download</button>
-        <button class="yt-act" id="saveBtn" onclick="ytToggleSave(this)">+ Save</button>
+      <div class="yt-watch-body">
+        <div class="yt-watch-title" id="watchTitle"></div>
+        <div class="yt-watch-chan" id="watchChan"></div>
+        <div class="yt-watch-actions">
+          <button class="yt-act" id="likeBtn" onclick="ytToggleLike(this)">&#128077; Like</button>
+          <button class="yt-act" onclick="ytShare()">&#8599; Share</button>
+          <button class="yt-act" onclick="ytToast('Download works in the Mac app')">⬇ Download</button>
+          <button class="yt-act" id="saveBtn" onclick="ytToggleSave(this)">+ Save</button>
+        </div>
+        <div class="yt-watch-meta hidden" id="watchMeta"></div>
+        <div class="yt-upnext-head">Up next</div>
+        <div id="ytUpNext" class="yt-feed"></div>
       </div>
-      <div class="yt-watch-meta hidden" id="watchMeta"></div>
-      <div class="yt-upnext-head">Up next</div>
-      <div id="ytUpNext" class="yt-feed"></div>
     </div>
   </div>
 
@@ -774,7 +784,7 @@
     // Restart the slide-up animation each time a video opens.
     watch.style.animation = 'none'; void watch.offsetWidth; watch.style.animation = '';
     var player = document.getElementById('player');
-    player.src = 'https://www.youtube.com/embed/' + v.id + '?autoplay=1&rel=0';
+    player.src = 'https://www.youtube-nocookie.com/embed/' + v.id + '?autoplay=1&rel=0';
     document.getElementById('watchTitle').textContent = v.title;
     var meta = ytMetaLine(v);
     document.getElementById('watchChan').innerHTML =
