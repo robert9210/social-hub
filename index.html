@@ -320,9 +320,8 @@
   // Ad-Free button: in Electron open YouTube straight in the in-app WebView
   // (no intermediate page); on the web keep the old embedded Ad-Free page.
   function openAdFree() {
-    if (isElectron) { openWebview('https://www.youtube.com', 'YouTube'); return; }
-    showPage('ytPage');
-  }
+  openWebview('https://m.youtube.com', 'YouTube');
+}
 
   function openWebview(url, name) {
     document.getElementById('wvTitle').textContent = name || 'Web';
