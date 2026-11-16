@@ -10,12 +10,16 @@
   ],
   "display": "standalone",
   "display_override": [
+    "tabbed",
     "window-controls-overlay",
     "standalone",
     "minimal-ui"
   ],
   "launch_handler": {
     "client_mode": "focus-existing"
+  },
+  "edge_side_panel": {
+    "preferred_width": 400
   },
   "background_color": "#0F0F12",
   "theme_color": "#0F0F12",
