@@ -37,6 +37,21 @@
     }
   ],
   "iarc_rating_id": "urn:iarc:rated:all",
+  "protocol_handlers": [
+    {
+      "protocol": "web+netwave",
+      "url": "./index.html?value=%s"
+    }
+  ],
+  "share_target": {
+    "action": "./index.html",
+    "method": "GET",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url"
+    }
+  },
   "shortcuts": [
     {
       "name": "Home",
@@ -58,6 +73,27 @@
           ".txt"
         ]
       }
+    }
+  ],
+  "widgets": [
+    {
+      "name": "NetWave Widget",
+      "short_name": "Widget",
+      "description": "Quick access widget for NetWave",
+      "tag": "netwave-widget",
+      "type": "application/json",
+      "screenshots": [
+        {
+          "src": "icon-512.png",
+          "sizes": "512x512"
+        }
+      ],
+      "icons": [
+        {
+          "src": "icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
     }
   ],
   "icons": [
