@@ -1070,18 +1070,20 @@
     var fab = document.getElementById('dlFab');
     if (!fab) return;
     
-    // Check karein ke kya watch screen khuli hai ya WebView par koi video chal rahi hai
+    // Check karein ke ya toh custom player active hai, ya WebView ke andar YouTube khula hua hai
     var watchEl = document.getElementById('ytWatch');
     var watchVisible = watchEl && !watchEl.classList.contains('hidden');
     var wvVisible = document.getElementById('wvPage').classList.contains('active');
-    var isYoutubeVideo = wvVisible && wvCurrentUrl && /youtube\.com\/watch/.test(wvCurrentUrl);
-
-    if (watchVisible || isYoutubeVideo) {
+    
+    // Agar WebView active hai aur URL mein 'youtube.com' hai (chahe watch ho ya search/browse) ya video chal rahi hai
+    if (watchVisible || (wvVisible && wvCurrentUrl && /youtube\.com/.test(wvCurrentUrl))) {
       fab.classList.add('show');
     } else {
       fab.classList.remove('show');
     }
   }
+
+  setInterval(updateDlFab, 500);
 
   setInterval(updateDlFab, 500);
 </script>
