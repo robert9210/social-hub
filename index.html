@@ -192,6 +192,8 @@
   /* ---------- DOWNLOAD MANAGER (Mobile Optimized) ---------- */
   #dlFab { position: fixed; right: 16px; bottom: 78px; z-index: 40; display: none; align-items: center; gap: 8px; background: linear-gradient(90deg, #f59e0b, #fbbf24); color: #111; border: none; font-weight: 800; font-size: 14px; padding: 12px 18px; border-radius: 999px; cursor: pointer; box-shadow: 0 10px 28px rgba(245,158,11,.5); }
   #dlFab.show { display: flex; }
+  .yt-dl-btn { display: block; width: 100%; margin: 12px 0 2px; padding: 13px 16px; border: 0; border-radius: 999px; background: linear-gradient(90deg, #f59e0b, #fbbf24); color: #111; font: inherit; font-size: 15px; font-weight: 800; cursor: pointer; box-shadow: 0 8px 24px rgba(245,158,11,.35); }
+  .yt-dl-btn:active { transform: scale(.98); }
   #dlOverlay { position: fixed; inset: 0; z-index: 60; background: rgba(0,0,0,.7); display: none; align-items: flex-end; justify-content: center; }
   #dlOverlay.show { display: flex; }
   #dlPanel { width: 100%; max-width: 480px; background: #1a1a22; border: 1px solid #26262e; border-bottom: none; border-radius: 20px 20px 0 0; padding: 18px; animation: fadeIn .25s ease; }
@@ -351,6 +353,7 @@
         </div>
       </div>
       <div class="yt-watch-body">
+        <button class="yt-dl-btn" onclick="openDownloadPanel()">&#11015; Download Video</button>
         <div class="yt-watch-title" id="watchTitle"></div>
         <div class="yt-watch-chan" id="watchChan"></div>
         <div class="yt-watch-actions">
@@ -422,7 +425,7 @@
         <button type="button" class="dl-fmt" onclick="selectDlFormat('mp3')">MP3</button>
       </div>
       <div class="dl-actions">
-        <a class="dl-go" id="dlGoBtn" href="#" target="_blank" download>Download File</a>
+        <a class="dl-go" id="dlGoBtn" href="#" target="_blank" download onclick="dlStartDownload()">Download File</a>
         <button class="dl-cancel" onclick="closeDownloadPanel()">Cancel</button>
       </div>
       <div class="dl-status" id="dlStatus">Select quality and tap download.</div>
@@ -1026,6 +1029,12 @@
     return m ? m[1] : '';
   }
 
+  function dlFallbackFormats() {
+    var box = document.getElementById('dlFormats');
+    box.innerHTML = ['1080p', '720p', '360p', 'mp3'].map(function (f) {
+      return '<button type="button" class="dl-fmt' + (f === dlSelected ? ' sel' : '') + '" onclick="selectDlFormat(\'' + f + '\')">' + f.toUpperCase() + '</button>';
+    }).join('');
+  }
   function openDownloadPanel() {
     dlCurrentUrl = getCurrentVideoUrl();
     var id = ytIdFromUrl(dlCurrentUrl) || (typeof ytPlaying !== 'undefined' && ytPlaying ? ytPlaying.id : 'dQw4w9WgXcQ');
@@ -1038,8 +1047,39 @@
       thumb.style.display = 'none';
     }
     document.getElementById('dlUrl').textContent = dlCurrentUrl;
+    document.getElementById('dlProgress').classList.remove('show');
+    document.getElementById('dlBarFill').style.width = '0%';
+    document.getElementById('dlProgressText').textContent = '';
+    var box = document.getElementById('dlFormats');
+    box.innerHTML = '<div class="dl-fmt-loading">Formats load ho rahe hain\u2026</div>';
+    document.getElementById('dlStatus').textContent = 'Video details fetch ho rahi hain\u2026';
     updateDownloadLink();
     document.getElementById('dlOverlay').classList.add('show');
+    if (!id || typeof fetch !== 'function') { dlFallbackFormats(); return; }
+    fetch('https://yt.chocolatemoo53.com/api/v1/videos/' + id)
+      .then(function (r) { if (!r.ok) throw new Error('http ' + r.status); return r.json(); })
+      .then(function (d) {
+        if (d && d.title) document.getElementById('dlTitle').textContent = d.title;
+        var heights = [];
+        var seen = {};
+        (d.adaptiveFormats || []).forEach(function (f) {
+          var h = 0;
+          if (f.resolution) { var m = String(f.resolution).match(/(\d+)x(\d+)/); if (m) h = parseInt(m[2], 10); }
+          if (!h && f.height) h = parseInt(f.height, 10);
+          if (h > 0 && !seen[h]) { seen[h] = true; heights.push(h); }
+        });
+        heights.sort(function (a, b) { return b - a; });
+        if (!heights.length) { dlFallbackFormats(); return; }
+        var def = heights.indexOf(720) >= 0 ? 720 : heights[0];
+        dlSelected = def + 'p';
+        var html = heights.map(function (h) {
+          return '<button type="button" class="dl-fmt' + (h === def ? ' sel' : '') + '" onclick="selectDlFormat(\'' + h + 'p\')">' + h + 'p</button>';
+        }).join('');
+        html += '<button type="button" class="dl-fmt" onclick="selectDlFormat(\'mp3\')">MP3</button>';
+        box.innerHTML = html;
+        updateDownloadLink();
+      })
+      .catch(function () { dlFallbackFormats(); updateDownloadLink(); });
   }
 
   function selectDlFormat(fmt) {
@@ -1064,6 +1104,15 @@
 
   function closeDownloadPanel() {
     document.getElementById('dlOverlay').classList.remove('show');
+  }
+  function dlStartDownload() {
+    var bar = document.getElementById('dlProgress');
+    var fill = document.getElementById('dlBarFill');
+    var txt = document.getElementById('dlProgressText');
+    bar.classList.add('show');
+    fill.style.width = '100%';
+    txt.textContent = 'Download shuru — loader.to pe file tayyar ho rahi hai.';
+    document.getElementById('dlStatus').textContent = 'Download File khul gaya — .mp4 Downloads folder me save hogi, phir gallery me move kar lena.';
   }
 
   function updateDlFab() {
