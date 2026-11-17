@@ -84,10 +84,6 @@
   .vid-sub { display: block; color: #9ca3af; font-size: 12px; margin-top: 5px; }
   .empty-msg { text-align: center; color: #9ca3af; padding: 30px 10px; font-size: 14px; }
 
-
-
-
-
   /* ---------- YouTube-like home (Ad-Free) ---------- */
   html, body { overflow-x: hidden; }
   .yt-watch-title, .yt-watch-chan, .yt-watch-meta { overflow-wrap: anywhere; word-break: break-word; }
@@ -160,6 +156,7 @@
   @keyframes ytFadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
   @keyframes ytSlideUp { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: translateY(0); } }
   .yt-toast { position: fixed; left: 50%; bottom: 26px; transform: translateX(-50%); background: #f1f1f1; color: #0f0f12; font-size: 14px; font-weight: 600; padding: 11px 18px; border-radius: 10px; box-shadow: 0 8px 30px rgba(0,0,0,.5); z-index: 99; animation: ytFadeUp .25s ease both; max-width: 86vw; text-align: center; }
+
   /* ---------- ProTube-style: bottom nav, sticky miniplayer, Shorts player ---------- */
   #ytPage { padding-bottom: 72px; }
   .yt-bottomnav { position: fixed; left: 50%; transform: translateX(-50%); bottom: 0; width: 100%; max-width: 480px; background: rgba(15,15,18,.97); border-top: 1px solid #26262e; display: flex; z-index: 60; padding-bottom: env(safe-area-inset-bottom); }
@@ -192,21 +189,21 @@
   .wv-loading { padding: 10px 14px; font-size: 13px; color: #9ca3af; background: #14141a; border-bottom: 1px solid #26262e; }
   #wv { flex: 1; width: 100%; border: 0; background: #fff; min-height: 0; }
 
-  /* ---------- DOWNLOAD MANAGER ---------- */
-  #dlFab { position: fixed; right: 16px; bottom: 18px; z-index: 40; display: none; align-items: center; gap: 8px; background: linear-gradient(90deg, #f59e0b, #fbbf24); color: #111; border: none; font-weight: 800; font-size: 14px; padding: 12px 18px; border-radius: 999px; cursor: pointer; box-shadow: 0 10px 28px rgba(245,158,11,.5); }
+  /* ---------- DOWNLOAD MANAGER (Mobile Optimized) ---------- */
+  #dlFab { position: fixed; right: 16px; bottom: 78px; z-index: 40; display: none; align-items: center; gap: 8px; background: linear-gradient(90deg, #f59e0b, #fbbf24); color: #111; border: none; font-weight: 800; font-size: 14px; padding: 12px 18px; border-radius: 999px; cursor: pointer; box-shadow: 0 10px 28px rgba(245,158,11,.5); }
   #dlFab.show { display: flex; }
   #dlOverlay { position: fixed; inset: 0; z-index: 60; background: rgba(0,0,0,.7); display: none; align-items: flex-end; justify-content: center; }
   #dlOverlay.show { display: flex; }
   #dlPanel { width: 100%; max-width: 480px; background: #1a1a22; border: 1px solid #26262e; border-bottom: none; border-radius: 20px 20px 0 0; padding: 18px; animation: fadeIn .25s ease; }
-  .dl-thumb { width: 100%; border-radius: 12px; background: #000; }
-  .dl-title { font-size: 15px; font-weight: 700; margin: 12px 0 4px; line-height: 1.4; }
-  .dl-url { font-size: 12px; color: #9ca3af; word-break: break-all; }
+  .dl-thumb { width: 100%; border-radius: 12px; background: #000; aspect-ratio: 16/9; object-fit: cover; margin-bottom: 10px; }
+  .dl-title { font-size: 15px; font-weight: 700; margin: 4px 0 4px; line-height: 1.4; }
+  .dl-url { font-size: 12px; color: #9ca3af; word-break: break-all; margin-bottom: 10px; }
   .dl-formats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 14px 0; }
-  .dl-fmt { border: 1px solid #3f3f46; background: #26262e; color: #fff; border-radius: 12px; padding: 10px 4px; font-size: 13px; font-weight: 700; cursor: pointer; }
+  .dl-fmt { border: 1px solid #3f3f46; background: #26262e; color: #fff; border-radius: 12px; padding: 10px 4px; font-size: 13px; font-weight: 700; cursor: pointer; text-align: center; }
   .dl-fmt.sel { border-color: #fbbf24; background: #3a2f10; color: #fbbf24; }
   .dl-fmt-loading { grid-column: 1 / -1; color: #9ca3af; font-size: 13px; padding: 10px 4px; }
   .dl-actions { display: flex; gap: 10px; }
-  .dl-go { flex: 1; background: linear-gradient(90deg, #f59e0b, #fbbf24); color: #111; border: none; font-weight: 800; font-size: 15px; padding: 12px; border-radius: 999px; cursor: pointer; }
+  .dl-go { flex: 1; background: linear-gradient(90deg, #f59e0b, #fbbf24); color: #111; border: none; font-weight: 800; font-size: 15px; padding: 12px; border-radius: 999px; cursor: pointer; text-align: center; text-decoration: none; display: flex; align-items: center; justify-content: center; }
   .dl-go:disabled { opacity: .5; cursor: default; }
   .dl-cancel { background: #26262e; color: #fff; border: 1px solid #3f3f46; font-weight: 700; font-size: 15px; padding: 12px 18px; border-radius: 999px; cursor: pointer; }
   .dl-status { font-size: 13px; color: #9ca3af; margin-top: 12px; line-height: 1.5; min-height: 18px; }
@@ -359,7 +356,7 @@
         <div class="yt-watch-actions">
           <button class="yt-act" id="likeBtn" onclick="ytToggleLike(this)">&#128077; Like</button>
           <button class="yt-act" onclick="ytShare()">&#8599; Share</button>
-          <button class="yt-act" onclick="ytToast('Download works in the Mac app')">⬇ Download</button>
+          <button class="yt-act" onclick="openDownloadPanel()">⬇ Download</button>
           <button class="yt-act" id="saveBtn" onclick="ytToggleSave(this)">+ Save</button>
         </div>
         <div class="yt-watch-meta hidden" id="watchMeta"></div>
@@ -418,12 +415,17 @@
       <div class="dl-title" id="dlTitle">Video</div>
       <img id="dlThumb" class="dl-thumb" src="" alt="" onerror="this.style.display='none'">
       <div class="dl-url" id="dlUrl"></div>
-      <div class="dl-formats" id="dlFormats"></div>
+      <div class="dl-formats" id="dlFormats">
+        <button type="button" class="dl-fmt sel" onclick="selectDlFormat('1080p')">1080p</button>
+        <button type="button" class="dl-fmt" onclick="selectDlFormat('720p')">720p</button>
+        <button type="button" class="dl-fmt" onclick="selectDlFormat('360p')">360p</button>
+        <button type="button" class="dl-fmt" onclick="selectDlFormat('mp3')">MP3</button>
+      </div>
       <div class="dl-actions">
-        <button class="dl-go" id="dlGoBtn" onclick="startDownload()">Download</button>
+        <a class="dl-go" id="dlGoBtn" href="#" target="_blank" download>Download File</a>
         <button class="dl-cancel" onclick="closeDownloadPanel()">Cancel</button>
       </div>
-      <div class="dl-status" id="dlStatus"></div>
+      <div class="dl-status" id="dlStatus">Select quality and tap download.</div>
       <div class="dl-progress" id="dlProgress"><div class="dl-bar"><i id="dlBarFill"></i></div><div class="dl-progress-text" id="dlProgressText"></div></div>
     </div>
   </div>
@@ -490,10 +492,6 @@
     window.open(url, '_blank');
   }
 
-  // Ad-Free button: in Electron open YouTube straight in the in-app WebView
-  // (no intermediate page); on the web keep the old embedded Ad-Free page.
-  // Ad-Free button: in Electron open YouTube straight in the in-app WebView
-  // (no intermediate page); on the web open the in-app home feed.
   function openAdFree() {
     window.location.href = 'https://www.youtube.com';
   }
@@ -534,7 +532,6 @@
       if (e.title) document.getElementById('wvTitle').textContent = e.title;
     });
     wv.addEventListener('new-window', function (e) {
-      // Keep every link inside the app instead of opening a browser window.
       wv.loadURL(e.url);
     });
     wv.addEventListener('dom-ready', function () {
@@ -584,14 +581,6 @@
   }
 
   /* ---------- In-app YouTube home (web) ---------- */
-  // Real YouTube home can't be embedded in a page — YouTube blocks it
-  // (X-Frame-Options: SAMEORIGIN). So the in-app home is a real feed
-  // instead: trending + search from the Invidious API, played in
-  // YouTube's own embed player (which works on mobile browsers).
-  // If the API is down, the built-in video list is shown instead.
-  // Layout mimics the mobile YouTube app: top bar, topic chips,
-  // a Shorts shelf, full-width video cards, and a watch view that
-  // opens only when a video is tapped (no pre-loaded player).
   var INV_API = 'https://yt.chocolatemoo53.com/api/v1';
   var ytCurrentList = [];
   var ytShortsList = [];
@@ -623,8 +612,6 @@
     ts = Number(ts) || 0;
     if (!ts) return '';
     var diff = Math.floor(Date.now() / 1000) - ts;
-    // Under an hour is hidden: the trending feed stamps every item with
-    // "now", so showing "just now" would be wrong on all of them.
     if (diff < 3600) return '';
     if (diff < 86400) { var h = Math.floor(diff / 3600); return h + (h === 1 ? ' hour ago' : ' hours ago'); }
     if (diff < 604800) { var d = Math.floor(diff / 86400); return d + (d === 1 ? ' day ago' : ' days ago'); }
@@ -710,16 +697,13 @@
         + '<span class="yt-short-title">' + escHtml(s.v.title) + '</span></button>';
     }).join('');
   }
-  // Shorts shelf: the trending feed reports no durations, so Shorts are
-  // fetched separately (search "#shorts", short videos only) and appended
-  // to the home list so they play like any other video.
   function loadYtShorts() {
     if (typeof fetch !== 'function') return;
     var homeList = ytCurrentList;
     fetch(INV_API + '/search?q=%23shorts&type=video&duration=short')
       .then(function (r) { if (!r.ok) throw new Error('http ' + r.status); return r.json(); })
       .then(function (data) {
-        if (ytCurrentList !== homeList) return; // user left the home feed
+        if (ytCurrentList !== homeList) return;
         var shorts = (Array.isArray(data) ? data : []).filter(function (v) { return v.type === 'video'; }).map(ytToItem).filter(Boolean)
           .filter(function (v) { return v.durSec > 0 && v.durSec <= 60 && !v.live; }).slice(0, 10);
         if (shorts.length < 2) return;
@@ -730,7 +714,7 @@
         ytCurrentList = ytCurrentList.concat(fresh);
         renderYtShorts(ytCurrentList);
       })
-      .catch(function () { /* shelf stays hidden */ });
+      .catch(function () {});
   }
   function renderYtList(items, isSearch) {
     ytCurrentList = items || [];
@@ -746,7 +730,6 @@
     } else {
       renderYtShorts(ytCurrentList);
     }
-    // Shorts live in the shelf only; the feed shows the longer videos.
     var feed = [], i, v;
     for (i = 0; i < ytCurrentList.length; i++) {
       v = ytCurrentList[i];
@@ -755,7 +738,6 @@
     if (!feed.length) { for (i = 0; i < ytCurrentList.length; i++) feed.push({ v: ytCurrentList[i], idx: i }); }
     list.innerHTML = feed.map(function (f) { return ytCardHtml(f.v, f.idx); }).join('');
   }
-  // Built-in list: used when the API is unreachable, and to filter locally.
   function renderYtFallback(q) {
     q = (q || '').toLowerCase();
     var items = VIDEOS.filter(function (v) {
@@ -816,8 +798,7 @@
     q = (q || '').trim();
     clearTimeout(ytSearchTimer);
     if (!q) { loadYtHome(); return; }
-    if (q.length < 2) return; // 1 char: wait for more, do NOT reload home (it clears the input)
-    // Keep the matching topic chip active; any other query clears the chips.
+    if (q.length < 2) return;
     var matched = '', c;
     for (c = 0; c < YT_CHIPS.length; c++) {
       if (YT_CHIPS[c].toLowerCase() === q.toLowerCase()) { matched = YT_CHIPS[c]; break; }
@@ -845,7 +826,6 @@
     document.getElementById('ytFeed').classList.add('hidden');
     var watch = document.getElementById('ytWatch');
     watch.classList.remove('hidden');
-    // Restart the slide-up animation each time a video opens.
     watch.style.animation = 'none'; void watch.offsetWidth; watch.style.animation = '';
     var player = document.getElementById('player');
     player.src = 'https://www.youtube-nocookie.com/embed/' + v.id + '?autoplay=1&rel=0&modestbranding=1';
@@ -866,7 +846,6 @@
     like.classList.remove('on'); like.innerHTML = '&#128077; Like';
     var save = document.getElementById('saveBtn');
     save.classList.remove('on'); save.textContent = '+ Save';
-    // Up next: the rest of the list, same cards.
     var up = document.getElementById('ytUpNext');
     var h = '', j;
     for (j = 0; j < ytCurrentList.length; j++) {
@@ -910,7 +889,6 @@
     document.body.appendChild(t);
     setTimeout(function () { if (t.parentNode) t.parentNode.removeChild(t); }, 2200);
   }
-  // Old names kept working: they now just show the built-in list.
   function renderList(q) { renderYtFallback(q); }
   function playVideo(id, title, channel) {
     var i;
@@ -921,10 +899,6 @@
     playYtVideo(0);
   }
 
-  // Fullscreen landscape for the player (YouTube-style): the button, or a
-  // quick upward flick starting on the player chrome (back / expand buttons).
-  // Note: swipes that start on the video itself go to YouTube's own player
-  // (cross-origin iframe), so the button is the reliable path.
   function ytFullscreen() {
     var wrap = document.querySelector('.yt-watch-player');
     if (!wrap) return;
@@ -954,7 +928,6 @@
     }, { passive: true });
   })();
 
-  // Full-screen vertical Shorts player (ProTube-style).
   function openYtShorts(i) {
     if (!ytShortsList.length) return;
     ytShortsIdx = Math.max(0, Math.min(i, ytShortsList.length - 1));
@@ -992,7 +965,6 @@
       ytToast(url);
     }
   }
-  // Swipe up/down on the Shorts player to change Short.
   (function () {
     var sp = document.getElementById('ytShortsPlayer');
     if (!sp) return;
@@ -1007,7 +979,6 @@
       if (Math.abs(dy) > 60 && dx < 40 && dt < 400) ytShortsStep(dy > 0 ? -1 : 1);
     }, { passive: true });
   })();
-  // Bottom nav (Home / Shorts / You).
   function ytNavGo(tab) {
     var home = document.getElementById('ytNavHome');
     var shorts = document.getElementById('ytNavShorts');
@@ -1032,19 +1003,19 @@
   buildYtChips();
   wireWebview();
 
-  /* ---------- Download Manager ---------- */
-  // Fixed list is only the fallback — the panel normally lists the video's
-  // real heights, fetched from yt-dlp when the panel opens.
-  var dlFallbackFormats = [
-    { id: '1080p', label: '1080p' },
-    { id: '720p', label: '720p' },
-    { id: '360p', label: '360p' },
-    { id: 'mp3', label: 'MP3' }
-  ];
-  var dlFormats = dlFallbackFormats.slice();
-  var dlSelected = '720p';
+  /* ---------- Download Manager (Mobile WebView Optimized) ---------- */
+  var dlSelected = '1080p';
   var dlCurrentUrl = '';
-  var dlBusy = false; // one download at a time
+
+  function getCurrentVideoUrl() {
+    if (typeof ytPlaying !== 'undefined' && ytPlaying && ytPlaying.id) {
+      return 'https://www.youtube.com/watch?v=' + ytPlaying.id;
+    }
+    if (wvCurrentUrl && /youtube\.com/.test(wvCurrentUrl)) {
+      return wvCurrentUrl;
+    }
+    return window.location.href;
+  }
 
   function ytIdFromUrl(url) {
     var m = url.match(/[?&]v=([A-Za-z0-9_-]{6,})/);
@@ -1055,161 +1026,60 @@
     return m ? m[1] : '';
   }
 
-  // Floating button: only on the WebView page, only on YouTube pages.
-  function updateDlFab() {
-    var fab = document.getElementById('dlFab');
-    var onWv = document.getElementById('wvPage').classList.contains('active');
-    var show = onWv && wvCurrentUrl && /youtube\.com/.test(wvCurrentUrl);
-    fab.classList.toggle('show', !!show);
-  }
-
   function openDownloadPanel() {
-    var url = wvCurrentUrl || '';
-    dlCurrentUrl = url;
-    var id = ytIdFromUrl(url);
+    dlCurrentUrl = getCurrentVideoUrl();
+    var id = ytIdFromUrl(dlCurrentUrl) || (typeof ytPlaying !== 'undefined' && ytPlaying ? ytPlaying.id : 'dQw4w9WgXcQ');
     var thumb = document.getElementById('dlThumb');
-    document.getElementById('dlTitle').textContent = document.getElementById('wvTitle').textContent || 'YouTube video';
+    document.getElementById('dlTitle').textContent = (typeof ytPlaying !== 'undefined' && ytPlaying ? ytPlaying.title : null) || document.getElementById('wvTitle').textContent || 'YouTube Video';
     if (id) {
       thumb.src = 'https://i.ytimg.com/vi/' + id + '/hqdefault.jpg';
       thumb.style.display = 'block';
     } else {
       thumb.style.display = 'none';
     }
-    document.getElementById('dlUrl').textContent = url;
-    setDlStatus('', '');
-    showDlProgress(false);
-    document.getElementById('dlBarFill').style.width = '0%';
-    document.getElementById('dlProgressText').textContent = '';
+    document.getElementById('dlUrl').textContent = dlCurrentUrl;
+    updateDownloadLink();
     document.getElementById('dlOverlay').classList.add('show');
-    // Load this video's real resolutions, then build the format buttons.
-    loadDlFormats();
   }
 
-  function loadDlFormats() {
-    var grid = document.getElementById('dlFormats');
-    grid.innerHTML = '<div class="dl-fmt-loading">Formats load ho rahe hain…</div>';
-    document.getElementById('dlGoBtn').disabled = true;
-    var vid = ytIdFromUrl(dlCurrentUrl);
-    var cleanUrl = vid ? 'https://www.youtube.com/watch?v=' + vid : dlCurrentUrl;
-    if (!window.electronAPI || !window.electronAPI.getVideoFormats) {
-      dlFormats = dlFallbackFormats.slice();
-      pickDefaultDlFormat();
-      renderDlFormats();
-      return;
-    }
-    window.electronAPI.getVideoFormats(cleanUrl).then(function (res) {
-      if (res && res.ok && res.heights && res.heights.length) {
-        dlFormats = res.heights.map(function (h) { return { id: h + 'p', label: h + 'p' }; });
-        dlFormats.push({ id: 'mp3', label: 'MP3' });
+  function selectDlFormat(fmt) {
+    dlSelected = fmt;
+    var btns = document.querySelectorAll('.dl-fmt');
+    btns.forEach(function (b) {
+      if (b.textContent.toLowerCase() === fmt.toLowerCase()) {
+        b.classList.add('sel');
       } else {
-        dlFormats = dlFallbackFormats.slice();
+        b.classList.remove('sel');
       }
-      pickDefaultDlFormat();
-      renderDlFormats();
-    }).catch(function () {
-      dlFormats = dlFallbackFormats.slice();
-      pickDefaultDlFormat();
-      renderDlFormats();
     });
+    updateDownloadLink();
   }
 
-  // Default: 720p if the video has it, else the highest height at or below
-  // 720, else the lowest available height.
-  function pickDefaultDlFormat() {
-    var heights = dlFormats.filter(function (f) { return /^\d+p$/.test(f.id); })
-      .map(function (f) { return parseInt(f.id, 10); });
-    if (!heights.length) { dlSelected = 'mp3'; return; }
-    if (heights.indexOf(720) !== -1) { dlSelected = '720p'; return; }
-    var below = heights.filter(function (h) { return h <= 720; });
-    dlSelected = (below.length ? Math.max.apply(null, below) : Math.min.apply(null, heights)) + 'p';
-  }
-
-  function renderDlFormats() {
-    document.getElementById('dlFormats').innerHTML = dlFormats.map(function (f) {
-      return '<button type="button" class="dl-fmt' + (f.id === dlSelected ? ' sel' : '') + '" onclick="selectDlFormat(\'' + f.id + '\')">' + f.label + '</button>';
-    }).join('');
-    document.getElementById('dlGoBtn').disabled = dlBusy;
-  }
-
-  function selectDlFormat(id) {
-    dlSelected = id;
-    renderDlFormats();
+  function updateDownloadLink() {
+    var btn = document.getElementById('dlGoBtn');
+    var id = ytIdFromUrl(dlCurrentUrl) || (typeof ytPlaying !== 'undefined' && ytPlaying ? ytPlaying.id : 'dQw4w9WgXcQ');
+    btn.href = 'https://loader.to/api/button/?url=https://www.youtube.com/watch?v=' + id + '&f=' + dlSelected;
+    document.getElementById('dlStatus').textContent = 'Ready to download (' + dlSelected.toUpperCase() + '). Tap Download File below.';
   }
 
   function closeDownloadPanel() {
     document.getElementById('dlOverlay').classList.remove('show');
   }
 
-  function setDlStatus(msg, cls) {
-    var el = document.getElementById('dlStatus');
-    el.textContent = msg;
-    el.className = 'dl-status' + (cls ? ' ' + cls : '');
+  function updateDlFab() {
+    var fab = document.getElementById('dlFab');
+    var watchEl = document.getElementById('ytWatch');
+    var wvEl = document.getElementById('wvPage');
+    var watchVisible = watchEl && !watchEl.classList.contains('hidden');
+    var wvVisible = wvEl && wvEl.classList.contains('active');
+    if (watchVisible || (wvVisible && wvCurrentUrl && /youtube\.com/.test(wvCurrentUrl)) || /youtube\.com/.test(window.location.href)) {
+      fab.classList.add('show');
+    } else {
+      fab.classList.remove('show');
+    }
   }
 
-  // Progress bar: appears at the bottom of the panel when a download starts.
-  function showDlProgress(show) {
-    document.getElementById('dlProgress').classList.toggle('show', !!show);
-  }
-  function setDlProgress(percent, text) {
-    showDlProgress(true);
-    document.getElementById('dlBarFill').style.width = Math.max(0, Math.min(100, percent)) + '%';
-    document.getElementById('dlProgressText').textContent = text || '';
-  }
-  if (window.electronAPI && window.electronAPI.onDownloadProgress) {
-    window.electronAPI.onDownloadProgress(function (d) {
-      if (!d || !dlBusy) return;
-      if (d.done) { setDlProgress(100, 'Download ho gaya ✓'); return; }
-      if (d.phase === 'merging') { setDlProgress(100, 'Merging video + audio…'); return; }
-      if (d.phase === 'extracting') { setDlProgress(100, 'MP3 bana raha hoon…'); return; }
-      var txt = Math.floor(d.percent || 0) + '%';
-      if (d.total) txt += ' of ' + d.total;
-      if (d.speed) txt += ' • ' + d.speed;
-      if (d.eta) txt += ' • ETA ' + d.eta;
-      setDlProgress(d.percent || 0, txt);
-    });
-  }
-
-  function startDownload() {
-    if (!window.electronAPI || !window.electronAPI.downloadVideo) {
-      setDlStatus('Download sirf app (Electron) me chalta hai — web version me nahi.', 'err');
-      return;
-    }
-    if (dlBusy) {
-      setDlStatus('Ek download pehle se chal rahi hai — uske complete hone ka wait karo.', 'err');
-      return;
-    }
-    // Send only the plain video URL — a Mix/playlist URL would make yt-dlp
-    // download the whole playlist. The video ID is all yt-dlp needs.
-    var vid = ytIdFromUrl(dlCurrentUrl);
-    var cleanUrl = vid ? 'https://www.youtube.com/watch?v=' + vid : dlCurrentUrl;
-    dlBusy = true;
-    setDlStatus('Downloading… ' + dlSelected, '');
-    setDlProgress(0, 'Starting…');
-    document.getElementById('dlGoBtn').disabled = true;
-    window.electronAPI.downloadVideo(cleanUrl, dlSelected).then(function (res) {
-      dlBusy = false;
-      document.getElementById('dlGoBtn').disabled = false;
-      if (res && res.ok) {
-        var name = (res.file || '').split('/').pop() || '';
-        setDlProgress(100, 'Download ho gaya ✓');
-        setDlStatus('Download ho gaya ✓ — ' + name, 'ok');
-      } else if (res && res.error === 'missing-ytdlp') {
-        showDlProgress(false);
-        setDlStatus('Download ke liye yt-dlp chahiye (abhi installed nahi hai). yt-dlp + ffmpeg total ~60 MB — download ke liye approval chahiye.', 'err');
-      } else if (res && res.error === 'busy') {
-        showDlProgress(false);
-        setDlStatus('Ek download pehle se chal rahi hai — uske complete hone ka wait karo.', 'err');
-      } else {
-        showDlProgress(false);
-        setDlStatus('Download fail ho gaya: ' + (res && res.error ? res.error : 'unknown error'), 'err');
-      }
-    }).catch(function (e) {
-      dlBusy = false;
-      document.getElementById('dlGoBtn').disabled = false;
-      showDlProgress(false);
-      setDlStatus('Download fail ho gaya: ' + (e && e.message ? e.message : e), 'err');
-    });
-  }
+  setInterval(updateDlFab, 1000);
 </script>
  <script>
   if ('serviceWorker' in navigator) {
