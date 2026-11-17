@@ -1068,17 +1068,22 @@
 
   function updateDlFab() {
     var fab = document.getElementById('dlFab');
-    // Foran button show kar do agar YouTube ka page ya webview active hai
-    if (document.getElementById('ytWatch') || document.getElementById('wvPage') || /youtube\.com/.test(window.location.href) || /youtube\.com/.test(wvCurrentUrl)) {
+    if (!fab) return;
+    
+    // Check karein ke kya watch screen khuli hai ya WebView par koi video chal rahi hai
+    var watchEl = document.getElementById('ytWatch');
+    var watchVisible = watchEl && !watchEl.classList.contains('hidden');
+    var wvVisible = document.getElementById('wvPage').classList.contains('active');
+    var isYoutubeVideo = wvVisible && wvCurrentUrl && /youtube\.com\/watch/.test(wvCurrentUrl);
+
+    if (watchVisible || isYoutubeVideo) {
       fab.classList.add('show');
     } else {
       fab.classList.remove('show');
     }
   }
 
-  // Page load hote hi aur har aadhe second baad check karega
   setInterval(updateDlFab, 500);
-  window.addEventListener('load', updateDlFab);
 </script>
  <script>
   if ('serviceWorker' in navigator) {
