@@ -234,7 +234,7 @@
   /* ---------- FLOATING DOWNLOAD BUTTON ---------- */
   #dlFab {
     position: fixed; right: 16px; bottom: 78px; z-index: 40;
-    display: none; align-items: center; gap: 6px;
+    display: flex; align-items: center; gap: 6px;
     background: linear-gradient(135deg, #ff9800, #f57c00);
     color: #111; font-weight: 800; font-size: 14px;
     border: none; border-radius: 999px; padding: 11px 18px;
@@ -1134,19 +1134,11 @@ async function startRealDownload(fileUrl, filename) {
 }
 
   function updateDlFab() {
-    var fab = document.getElementById('dlFab');
-    if (!fab) return;
-    
-    var watchEl = document.getElementById('ytWatch');
-    var watchVisible = watchEl && !watchEl.classList.contains('hidden');
-    var wvVisible = document.getElementById('wvPage') && document.getElementById('wvPage').classList.contains('active');
-
-    if (watchVisible || wvVisible) {
-      fab.classList.add('show');
-    } else {
-      fab.classList.remove('show');
+      var fab = document.getElementById('dlFab');
+      if (fab) {
+        fab.style.display = 'flex';
+      }
     }
-  }
 
   setInterval(updateDlFab, 500);
 </script>
