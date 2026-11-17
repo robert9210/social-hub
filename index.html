@@ -259,7 +259,7 @@
     <div id="dlPanel">
         <h3>📥 Net Wave Downloader</h3>
         <p style="font-size: 12px; color: #aaa; margin-bottom: 10px;">Video Link:</p>
-        <input type="text" id="dlUrlInput" readonly placeholder="Fetching video link..." style="width:100%; padding:10px; background:#2d2d2d; border:1px solid #444; color:white; border-radius:8px; margin-bottom:15px; font-size:14px;" />
+        <input type="text" id="dlUrlInput" placeholder="Paste YouTube link here or play a video..." style="width:100%; padding:10px; background:#2d2d2d; border:1px solid #444; color:white; border-radius:8px; margin-bottom:15px; font-size:14px;" />
         
         <div id="dlResolutionsList">
             <p style="font-size: 13px; color: #888; text-align: center;">Click fetch to load resolutions...</p>
@@ -1180,7 +1180,7 @@
   }
 
   setInterval(updateDlFab, 500);
- // --- In-App Downloader Functions ---
+ // --- Updated In-App Downloader Functions ---
 
 function openDownloadPanel(videoUrl) {
     const overlay = document.getElementById('dlOverlay');
@@ -1189,7 +1189,12 @@ function openDownloadPanel(videoUrl) {
     if (videoUrl) {
         urlInput.value = videoUrl;
     } else {
-        urlInput.value = window.location.href;
+        const currentUrl = window.location.href;
+        if (currentUrl.includes('youtube.com/watch') || currentUrl.includes('youtu.be/')) {
+            urlInput.value = currentUrl;
+        } else {
+            urlInput.value = '';
+        }
     }
     
     overlay.style.display = 'flex';
@@ -1201,11 +1206,11 @@ function closeDownloadPanel() {
 
 // Fetch Resolutions Button Event
 document.getElementById('fetchResBtn').addEventListener('click', function() {
-    const videoUrl = document.getElementById('dlUrlInput').value;
+    const videoUrl = document.getElementById('dlUrlInput').value.trim();
     const resList = document.getElementById('dlResolutionsList');
     
-    if (!videoUrl.includes('youtube.com') && !videoUrl.includes('youtu.be')) {
-        resList.innerHTML = '<p style="color: #ff5252; font-size: 13px; text-align: center;">Please open a valid YouTube video first!</p>';
+    if (!videoUrl || (!videoUrl.includes('youtube.com') && !videoUrl.includes('youtu.be'))) {
+        resList.innerHTML = '<p style="color: #ff5252; font-size: 13px; text-align: center;">Please enter or paste a valid YouTube video link!</p>';
         return;
     }
     
