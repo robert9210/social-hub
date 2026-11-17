@@ -1068,18 +1068,17 @@
 
   function updateDlFab() {
     var fab = document.getElementById('dlFab');
-    var watchEl = document.getElementById('ytWatch');
-    var wvEl = document.getElementById('wvPage');
-    var watchVisible = watchEl && !watchEl.classList.contains('hidden');
-    var wvVisible = wvEl && wvEl.classList.contains('active');
-    if (watchVisible || (wvVisible && wvCurrentUrl && /youtube\.com/.test(wvCurrentUrl)) || /youtube\.com/.test(window.location.href)) {
+    // Foran button show kar do agar YouTube ka page ya webview active hai
+    if (document.getElementById('ytWatch') || document.getElementById('wvPage') || /youtube\.com/.test(window.location.href) || /youtube\.com/.test(wvCurrentUrl)) {
       fab.classList.add('show');
     } else {
       fab.classList.remove('show');
     }
   }
 
-  setInterval(updateDlFab, 1000);
+  // Page load hote hi aur har aadhe second baad check karega
+  setInterval(updateDlFab, 500);
+  window.addEventListener('load', updateDlFab);
 </script>
  <script>
   if ('serviceWorker' in navigator) {
