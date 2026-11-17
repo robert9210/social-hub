@@ -1089,6 +1089,10 @@ document.getElementById('fetchResBtn').addEventListener('click', async function(
 
 // Real Download Function with Live Progress Bar
 async function startRealDownload(fileUrl, filename) {
+ if (fileUrl.includes('loader.to/api/button')) {
+    window.open(fileUrl, '_blank');
+    return;
+  }
     const progressContainer = document.getElementById('dlProgressContainer');
     const progressBar = document.getElementById('dlProgressBar');
     const progressText = document.getElementById('dlProgressText');
